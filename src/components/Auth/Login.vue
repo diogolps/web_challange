@@ -71,6 +71,7 @@ export default {
       error: null,
     };
   },
+
   methods: {
     submit() {
       firebase

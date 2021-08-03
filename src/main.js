@@ -18,6 +18,8 @@ Vue.use(IconsPlugin);
 var firebaseConfig = {
   apiKey: "AIzaSyBDYESWfS7b2A9TeyD9SSLqaPfkzLEqz1g",
   authDomain: "web-challenge-9d8c4.firebaseapp.com",
+  databaseURL:
+    "https://web-challenge-9d8c4-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "web-challenge-9d8c4",
   storageBucket: "web-challenge-9d8c4.appspot.com",
   messagingSenderId: "447845990637",

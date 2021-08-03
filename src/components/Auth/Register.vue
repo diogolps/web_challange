@@ -85,7 +85,7 @@ import firebase from "firebase";
 export default {
   data() {
     return {
-      form: {
+      user: {
         name: "",
         email: "",
         password: "",
@@ -97,11 +97,11 @@ export default {
     submit() {
       firebase
         .auth()
-        .createUserWithEmailAndPassword(this.form.email, this.form.password)
+        .createUserWithEmailAndPassword(this.user.email, this.user.password)
         .then((data) => {
           data.user
             .updateProfile({
-              displayName: this.form.name,
+              displayName: this.user.name,
             })
             .then(() => {});
         })
