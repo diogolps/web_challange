@@ -14,87 +14,11 @@
             <button class="btn btn-primary" @click="deleteCar(car.id)">
               Delete Car
             </button>
-
-            <b-button
-              @click="update(car.id)"
-              v-b-modal.modal-center
-              variant="primary"
-              class="mr-2"
+            <router-link
+              :to="{ name: 'update', params: { id: car.id } }"
+              class="btn btn-primary"
+              >Edit Car</router-link
             >
-              Edit Car
-            </b-button>
-            <b-modal v-model="show" id="modal-center" title="Centered modal">
-              <form action="#">
-                <div class="form-group row">
-                  <label
-                    for="brand"
-                    class="col-md-4 col-form-label text-md-right"
-                    >Brand</label
-                  >
-
-                  <div class="col-md-6">
-                    <input
-                      id="brand"
-                      type="name"
-                      class="form-control"
-                      name="brand"
-                      value
-                      required
-                      autofocus
-                      v-model="car.brand"
-                    />
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label
-                    for="model"
-                    class="col-md-4 col-form-label text-md-right"
-                    >Model</label
-                  >
-
-                  <div class="col-md-6">
-                    <input
-                      id="model"
-                      type="name"
-                      class="form-control"
-                      name="model"
-                      value
-                      required
-                      autofocus
-                      v-model="car.model"
-                    />
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label
-                    for="plate-number"
-                    class="col-md-4 col-form-label text-md-right"
-                    >Plate Number</label
-                  >
-
-                  <div class="col-md-6">
-                    <input
-                      id="plate-number"
-                      type="name"
-                      class="form-control"
-                      name="plate-number"
-                      required
-                      v-model="car.plateNumber"
-                    />
-                  </div>
-                </div>
-              </form>
-              <template v-slot:modal-footer="{ updateCar, cancel }">
-                <b-button @click="updateCar()" variant="primary" class="mr-2">
-                  Update
-                </b-button>
-                <b-button @click="cancel()" variant="primary" class="mr-2">
-                  Cancel
-                </b-button>
-              </template>
-            </b-modal>
           </p>
         </div>
       </div>
@@ -116,13 +40,13 @@ export default {
   data() {
     return {
       cars: [],
+      activeItem: "",
+      show: false,
       car: {
         brand: "",
         model: "",
         plateNumber: "",
       },
-      activeItem: "",
-      show: false,
     };
   },
 
@@ -154,8 +78,14 @@ export default {
         .delete();
     },
 
-    update(car) {
-      this.car = car.data();
+    update(docId) {
+      firebase
+        .firestore()
+        .collection("users")
+        .doc(firebase.auth().currentUser.uid)
+        .collection("cars")
+        .doc(docId);
+      this.car = docId;
     },
 
     updateCar(docId) {
@@ -165,7 +95,15 @@ export default {
         .doc(firebase.auth().currentUser.uid)
         .collection("cars")
         .doc(docId)
-        .update();
+        .update()
+        .then(() => {
+          this.successfully = true;
+          this.car = {
+            brand: "",
+            model: "",
+            plateNumber: "",
+          };
+        });
     },
   },
 
