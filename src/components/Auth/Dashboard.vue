@@ -26,10 +26,11 @@
                       type="name"
                       class="form-control"
                       name="brand"
+                      placeholder="Brand"
                       value
                       required
                       autofocus
-                      v-model="form.brand"
+                      v-model="car.brand"
                     />
                   </div>
                 </div>
@@ -47,10 +48,11 @@
                       type="name"
                       class="form-control"
                       name="model"
+                      placeholder="Model"
                       value
                       required
                       autofocus
-                      v-model="form.model"
+                      v-model="car.model"
                     />
                   </div>
                 </div>
@@ -68,8 +70,10 @@
                       type="name"
                       class="form-control"
                       name="plate-number"
+                      placeholder="00-AA-00"
+                      pattern="(^(?:[A-Z]{2}-\d{2}-\d{2})|(?:\d{2}-[A-Z]{2}-\d{2})|(?:\d{2}-\d{2}-[A-Z]{2})$)"
                       required
-                      v-model="form.plateNumber"
+                      v-model="car.plateNumber"
                     />
                   </div>
                 </div>
@@ -115,7 +119,7 @@ export default {
   data() {
     return {
       successfully: false,
-      form: {
+      car: {
         brand: "",
         model: "",
         plateNumber: "",
@@ -132,13 +136,13 @@ export default {
         .doc(firebase.auth().currentUser.uid)
         .collection("cars")
         .add({
-          brand: this.form.brand,
-          model: this.form.model,
-          plateNumber: this.form.plateNumber,
+          brand: this.car.brand,
+          model: this.car.model,
+          plateNumber: this.car.plateNumber,
         })
         .then(() => {
           this.successfully = true;
-          this.form = {
+          this.car = {
             brand: "",
             model: "",
             plateNumber: "",

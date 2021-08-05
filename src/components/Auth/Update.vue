@@ -18,6 +18,7 @@
                   type="name"
                   class="form-control"
                   name="brand"
+                  placeholder="Brand"
                   value
                   required
                   autofocus
@@ -37,6 +38,7 @@
                   type="name"
                   class="form-control"
                   name="model"
+                  placeholder="Model"
                   value
                   required
                   autofocus
@@ -58,6 +60,8 @@
                   type="name"
                   class="form-control"
                   name="plate-number"
+                  placeholder="00-AA-00"
+                  pattern="(^(?:[A-Z]{2}-\d{2}-\d{2})|(?:\d{2}-[A-Z]{2}-\d{2})|(?:\d{2}-\d{2}-[A-Z]{2})$)"
                   required
                   v-model="car.plateNumber"
                 />
