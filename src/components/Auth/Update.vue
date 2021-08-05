@@ -4,10 +4,10 @@
       <div class="col-md-8">
         <div class="card">
           <div class="card-header">
-            Cars
+            Edit Car
           </div>
           <form action="#" @submit.prevent="onSubmit">
-            <div class="form-group row">
+            <div class="form-group pt-3 row">
               <label for="brand" class="col-md-4 col-form-label text-md-right"
                 >Brand</label
               >
@@ -27,8 +27,8 @@
               </div>
             </div>
 
-            <div class="form-group row">
-              <label for="model" class="col-md-4 col-form-label text-md-right"
+            <div class="form-group pt-3  row">
+              <label for="model" class="col-md-4  col-form-label text-md-right"
                 >Model</label
               >
 
@@ -47,7 +47,7 @@
               </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group pt-3 row">
               <label
                 for="plate-number"
                 class="col-md-4 col-form-label text-md-right"
@@ -68,7 +68,7 @@
               </div>
             </div>
 
-            <div class="form-group row mb-0">
+            <div class="form-group pt-3 row mb-0">
               <div class="col-md-8 offset-md-4">
                 <button type="submit" class="btn btn-primary">
                   Update Car

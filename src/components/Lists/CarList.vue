@@ -1,27 +1,31 @@
 <template>
-  <div class="col-md-8">
+  <div>
     <div class="card">
       <div class="card-header">
         Cars
       </div>
+      <b-containar>
+        <b-row class="b-row pt-2">
+          <b-col cols="4" class="b-col " v-for="car in cars" :key="car.id">
+            <p><b>Brand:</b> {{ car.brand }}</p>
+            <p><b>Model:</b> {{ car.model }}</p>
+            <p><b>Plate Number:</b> {{ car.plateNumber }}</p>
+            <p>
+              <b-button-group
+                ><button class="btn btn-primary" @click="deleteCar(car.id)">
+                  Delete Car
+                </button>
 
-      <div class="card">
-        <div class="collection-item" v-for="car in cars" :key="car.id">
-          <p><b>Brand:</b> {{ car.brand }}</p>
-          <p><b>Model:</b> {{ car.model }}</p>
-          <p><b>Plate Number:</b> {{ car.plateNumber }}</p>
-          <p>
-            <button class="btn btn-primary" @click="deleteCar(car.id)">
-              Delete Car
-            </button>
-            <router-link
-              :to="{ name: 'update', params: { id: car.id } }"
-              class="btn btn-primary"
-              >Edit Car</router-link
-            >
-          </p>
-        </div>
-      </div>
+                <router-link
+                  :to="{ name: 'update', params: { id: car.id } }"
+                  class="btn btn-primary"
+                  >Edit Car</router-link
+                >
+              </b-button-group>
+            </p>
+          </b-col>
+        </b-row>
+      </b-containar>
     </div>
   </div>
 </template>
