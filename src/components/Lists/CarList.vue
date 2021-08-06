@@ -4,7 +4,7 @@
       <div class="card-header">
         Cars
       </div>
-      <b-containar>
+      <b-container>
         <b-row class="b-row pt-2">
           <b-col cols="4" class="b-col " v-for="car in cars" :key="car.id">
             <p><b>Brand:</b> {{ car.brand }}</p>
@@ -25,7 +25,7 @@
             </p>
           </b-col>
         </b-row>
-      </b-containar>
+      </b-container>
     </div>
   </div>
 </template>

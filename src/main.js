@@ -6,6 +6,7 @@ import firebase from "firebase";
 import store from "./store";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
+import * as VueGoogleMaps from "vue2-google-maps"; // Import package
 
 Vue.config.productionTip = false;
 
@@ -25,6 +26,13 @@ var firebaseConfig = {
   messagingSenderId: "447845990637",
   appId: "1:447845990637:web:30568c5b46f96c5c588ce4",
 };
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: "AIzaSyBeO_BS6ndB4ZVBU4sVYsKOzXR969FTH48",
+    libraries: "places",
+  },
+});
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);

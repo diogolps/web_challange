@@ -77,6 +77,44 @@
                     />
                   </div>
                 </div>
+                <div class="form-group pt-3  row">
+                  <label
+                    for="plate-number"
+                    class="col-md-4 col-form-label text-md-right"
+                    >Latitude</label
+                  >
+
+                  <div class="col-md-6">
+                    <input
+                      id="latitude"
+                      type="name"
+                      class="form-control"
+                      name="latitude"
+                      placeholder="Latitude"
+                      v-model="car.cordenadas.latitude"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-group pt-3  row">
+                  <label
+                    for="plate-number"
+                    class="col-md-4 col-form-label text-md-right"
+                    >Longitude</label
+                  >
+
+                  <div class="col-md-6">
+                    <input
+                      id="longitude"
+                      type="name"
+                      class="form-control"
+                      name="longitude"
+                      placeholder="Longitude"
+                      v-model="car.cordenadas.longitude"
+                      required
+                    />
+                  </div>
+                </div>
 
                 <div class="form-group pt-3  row mb-0">
                   <div class="col-md-8 offset-md-4">
@@ -94,6 +132,19 @@
                 </div>
               </form>
               <car-list />
+              <GmapMap
+                :center="{ lat: 41.1669838, lng: -8.5881368 }"
+                :zoom="12"
+                map-type-id="roadmap"
+                style="width: 800px; height: 400px; margin-top:60px"
+              >
+                <GmapMarker
+                  :key="index"
+                  v-for="(m, index) in markers"
+                  :position="m.position"
+                  @click="center = m.position"
+                />
+              </GmapMap>
             </div>
           </div>
         </div>
@@ -123,6 +174,10 @@ export default {
         brand: "",
         model: "",
         plateNumber: "",
+        cordenadas: {
+          latitude: "",
+          longitude: "",
+        },
       },
       error: null,
     };
@@ -139,6 +194,8 @@ export default {
           brand: this.car.brand,
           model: this.car.model,
           plateNumber: this.car.plateNumber,
+          latitude: this.car.cordenadas.latitude,
+          longitude: this.car.cordenadas.longitude,
         })
         .then(() => {
           this.successfully = true;
@@ -146,6 +203,10 @@ export default {
             brand: "",
             model: "",
             plateNumber: "",
+            cordenadas: {
+              latitude: "",
+              longitude: "",
+            },
           };
         });
     },
