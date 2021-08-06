@@ -91,7 +91,7 @@
                       class="form-control"
                       name="latitude"
                       placeholder="Latitude"
-                      v-model="car.cordenadas.latitude"
+                      v-model="car.coordinates.latitude"
                       required
                     />
                   </div>
@@ -110,7 +110,7 @@
                       class="form-control"
                       name="longitude"
                       placeholder="Longitude"
-                      v-model="car.cordenadas.longitude"
+                      v-model="car.coordinates.longitude"
                       required
                     />
                   </div>
@@ -174,7 +174,7 @@ export default {
         brand: "",
         model: "",
         plateNumber: "",
-        cordenadas: {
+        coordinates: {
           latitude: "",
           longitude: "",
         },
@@ -194,8 +194,8 @@ export default {
           brand: this.car.brand,
           model: this.car.model,
           plateNumber: this.car.plateNumber,
-          latitude: this.car.cordenadas.latitude,
-          longitude: this.car.cordenadas.longitude,
+          latitude: this.car.coordinates.latitude,
+          longitude: this.car.coordinates.longitude,
         })
         .then(() => {
           this.successfully = true;
@@ -203,7 +203,7 @@ export default {
             brand: "",
             model: "",
             plateNumber: "",
-            cordenadas: {
+            coordinates: {
               latitude: "",
               longitude: "",
             },
