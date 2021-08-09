@@ -91,7 +91,7 @@
                       class="form-control"
                       name="latitude"
                       placeholder="Latitude"
-                      v-model="car.coordinates.latitude"
+                      v-model="car.lat"
                       required
                     />
                   </div>
@@ -110,7 +110,7 @@
                       class="form-control"
                       name="longitude"
                       placeholder="Longitude"
-                      v-model="car.coordinates.longitude"
+                      v-model="car.lng"
                       required
                     />
                   </div>
@@ -134,15 +134,26 @@
               <car-list />
               <GmapMap
                 :center="{ lat: 41.1669838, lng: -8.5881368 }"
-                :zoom="12"
+                :zoom="10"
+                :opened="infoOpened"
+                @closeclick="infoOpened = false"
                 map-type-id="roadmap"
                 style="width: 800px; height: 400px; margin-top:60px"
               >
+                <Gmap-info-window
+                  :options="infoOptions"
+                  :position="infoPosition"
+                  :opened="infoOpened"
+                  @closeclick="infoOpened = false"
+                >
+                  {{ infoContent }}
+                </Gmap-info-window>
                 <GmapMarker
-                  :key="index"
-                  v-for="(m, index) in markers"
-                  :position="m.position"
-                  @click="center = m.position"
+                  v-for="car in coordinates"
+                  :key="car"
+                  :position="getPosition(car)"
+                  :clickable="true"
+                  @click="toggleInfo(car)"
                 />
               </GmapMap>
             </div>
@@ -159,6 +170,7 @@ import firebase from "firebase";
 import CarList from "../Lists/CarList.vue";
 
 export default {
+  name: "GoogleMap",
   components: { CarList },
   computed: {
     // map `this.user` to `this.$store.getters.user`
@@ -170,20 +182,46 @@ export default {
   data() {
     return {
       successfully: false,
+      coordinates: [],
       car: {
         brand: "",
         model: "",
         plateNumber: "",
-        coordinates: {
-          latitude: "",
-          longitude: "",
-        },
+        lat: "",
+        lng: "",
       },
       error: null,
+      infoPosition: null,
+      infoContent: null,
+      infoOpened: false,
+      infoCurrentKey: null,
+      infoOptions: {
+        pixelOffset: {
+          width: 0,
+          height: -35,
+        },
+      },
     };
   },
 
   methods: {
+    async getCoordinates() {
+      var carsRef = await firebase
+        .firestore()
+        .collection("users")
+        .doc(firebase.auth().currentUser.uid)
+        .collection("cars");
+
+      carsRef.onSnapshot((snap) => {
+        this.coordinates = [];
+        snap.forEach((doc) => {
+          var car = doc.data();
+          car.id = doc.id;
+          this.coordinates.push(car);
+        });
+      });
+    },
+
     addCar() {
       firebase
         .firestore()
@@ -194,8 +232,8 @@ export default {
           brand: this.car.brand,
           model: this.car.model,
           plateNumber: this.car.plateNumber,
-          latitude: this.car.coordinates.latitude,
-          longitude: this.car.coordinates.longitude,
+          lat: this.car.lat,
+          lng: this.car.lng,
         })
         .then(() => {
           this.successfully = true;
@@ -203,13 +241,32 @@ export default {
             brand: "",
             model: "",
             plateNumber: "",
-            coordinates: {
-              latitude: "",
-              longitude: "",
-            },
+            lat: "",
+            lng: "",
           };
         });
     },
+
+    getPosition: function(marker) {
+      return {
+        lat: parseFloat(marker.lat),
+        lng: parseFloat(marker.lng),
+      };
+    },
+    toggleInfo: function(marker, key) {
+      this.infoPosition = this.getPosition(marker);
+      this.infoContent = marker.brand;
+      if (this.infoCurrentKey == key) {
+        this.infoOpened = !this.infoOpened;
+      } else {
+        this.infoOpened = true;
+        this.infoCurrentKey = key;
+      }
+    },
+  },
+
+  created() {
+    this.getCoordinates();
   },
 };
 </script>
