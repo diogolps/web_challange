@@ -99,13 +99,12 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(this.form.email, this.form.password)
         .then((data) => {
+          this.$router.replace({ name: "Dashboard" });
           data.user
             .updateProfile({
               displayName: this.form.name,
             })
-            .then(() => {
-              this.$router.replace({ name: "Dashboard" });
-            });
+            .then(() => {});
         })
         .catch((err) => {
           this.error = err.message;

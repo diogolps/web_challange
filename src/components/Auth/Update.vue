@@ -68,6 +68,45 @@
               </div>
             </div>
 
+            <div class="form-group pt-3  row">
+              <label
+                for="plate-number"
+                class="col-md-4 col-form-label text-md-right"
+                >Latitude</label
+              >
+
+              <div class="col-md-6">
+                <input
+                  id="latitude"
+                  type="name"
+                  class="form-control"
+                  name="latitude"
+                  placeholder="Latitude"
+                  v-model="car.lat"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group pt-3  row">
+              <label
+                for="plate-number"
+                class="col-md-4 col-form-label text-md-right"
+                >Longitude</label
+              >
+
+              <div class="col-md-6">
+                <input
+                  id="longitude"
+                  type="name"
+                  class="form-control"
+                  name="longitude"
+                  placeholder="Longitude"
+                  v-model="car.lng"
+                  required
+                />
+              </div>
+            </div>
+
             <div class="form-group pt-3 row mb-0">
               <div class="col-md-8 offset-md-4">
                 <button type="submit" class="btn btn-primary">
