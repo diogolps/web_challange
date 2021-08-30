@@ -6,7 +6,12 @@
       </div>
       <b-container>
         <b-row class="b-row pt-2">
-          <b-col cols="4" class="b-col " v-for="car in cars" :key="car.id">
+          <b-col
+            cols="4"
+            class="b-col "
+            v-for="car in cars"
+            :key="car.id + 'list'"
+          >
             <p><b>Brand:</b> {{ car.brand }}</p>
             <p><b>Model:</b> {{ car.model }}</p>
             <p><b>Plate Number:</b> {{ car.plateNumber }}</p>
@@ -31,7 +36,9 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
 
 export default {
   computed: {

@@ -90,7 +90,8 @@
                       type="name"
                       class="form-control"
                       name="latitude"
-                      placeholder="Latitude"
+                      placeholder="41.227064"
+                      pattern="-?\d{1,3}\.\d+"
                       v-model="car.lat"
                       required
                     />
@@ -109,7 +110,8 @@
                       type="name"
                       class="form-control"
                       name="longitude"
-                      placeholder="Longitude"
+                      placeholder="-8.618287"
+                      pattern="-?\d{1,3}\.\d+"
                       v-model="car.lng"
                       required
                     />
@@ -122,40 +124,44 @@
                       Add Car
                     </button>
                   </div>
-                  <div
-                    v-show="successfully"
-                    class="alert alert-success"
-                    role="alert"
-                  >
-                    Car added successfully!!
+                  <div class="pt-3">
+                    <div
+                      v-show="successfully"
+                      class="alert alert-success"
+                      role="alert"
+                    >
+                      Car added successfully!!
+                    </div>
                   </div>
                 </div>
               </form>
               <car-list />
-              <GmapMap
-                :center="{ lat: 41.1669838, lng: -8.5881368 }"
-                :zoom="10"
-                :opened="infoOpened"
-                @closeclick="infoOpened = false"
-                map-type-id="roadmap"
-                style="width: 800px; height: 400px; margin-top:60px"
-              >
-                <Gmap-info-window
-                  :options="infoOptions"
-                  :position="infoPosition"
+              <div>
+                <GmapMap
+                  :center="{ lat: 41.1669838, lng: -8.5881368 }"
+                  :zoom="10"
                   :opened="infoOpened"
                   @closeclick="infoOpened = false"
+                  map-type-id="roadmap"
+                  style="width: 800px; height: 400px; margin-top:60px"
                 >
-                  {{ infoContent }}
-                </Gmap-info-window>
-                <GmapMarker
-                  v-for="car in coordinates"
-                  :key="car"
-                  :position="getPosition(car)"
-                  :clickable="true"
-                  @click="toggleInfo(car)"
-                />
-              </GmapMap>
+                  <Gmap-info-window
+                    :options="infoOptions"
+                    :position="infoPosition"
+                    :opened="infoOpened"
+                    @closeclick="infoOpened = false"
+                  >
+                    {{ infoContent }}
+                  </Gmap-info-window>
+                  <GmapMarker
+                    v-for="car in coordinates"
+                    :key="car.id + 'map'"
+                    :position="getPosition(car)"
+                    :clickable="true"
+                    @click="toggleInfo(car)"
+                  />
+                </GmapMap>
+              </div>
             </div>
           </div>
         </div>
@@ -166,7 +172,9 @@
 <script>
 import { mapGetters } from "vuex";
 
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
 import CarList from "../Lists/CarList.vue";
 
 export default {
@@ -215,9 +223,9 @@ export default {
       carsRef.onSnapshot((snap) => {
         this.coordinates = [];
         snap.forEach((doc) => {
-          var car = doc.data();
-          car.id = doc.id;
-          this.coordinates.push(car);
+          var carCoordinates = doc.data();
+          carCoordinates.id = doc.id;
+          this.coordinates.push(carCoordinates);
         });
       });
     },
