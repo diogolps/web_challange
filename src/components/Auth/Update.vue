@@ -1,11 +1,21 @@
 <template>
   <div class="container">
     <div class="row justify-content-center">
+      <div class="h2 mb-0">
+        <router-link to="/dashboard"
+          ><b-icon-box-arrow-left
+            animation="cylon"
+            font-scale="1"
+            type="dark"
+            variant="dark"
+          ></b-icon-box-arrow-left
+        ></router-link>
+      </div>
       <div class="col-md-8">
         <div class="card">
-          <div class="card-header">
+          <h3 class="card-header">
             Edit Car
-          </div>
+          </h3>
           <form action="#" @submit.prevent="onSubmit">
             <div class="form-group pt-3 row">
               <label for="brand" class="col-md-4 col-form-label text-md-right"

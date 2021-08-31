@@ -1,5 +1,10 @@
 <template>
-  <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+  <b-navbar
+    class="navbar navbar-expand-md navbar-light navbar-laravel"
+    toggleable="lg"
+    type="dark"
+    variant="dark"
+  >
     <div class="container">
       <router-link to="/" class="navbar-brand">Web Challenge</router-link>
       <button
@@ -37,7 +42,7 @@
         </ul>
       </div>
     </div>
-  </nav>
+  </b-navbar>
 </template>
 <script>
 import { mapGetters } from "vuex";

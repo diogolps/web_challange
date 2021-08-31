@@ -3,14 +3,14 @@
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
-          <div class="card-header">Dashboard</div>
+          <h3 class="card-header">Dashboard</h3>
           <div class="card-body">
             <div v-if="user" class="alert alert-success" role="alert">
               You are logged in!
             </div>
-            <div class="card-header">
+            <h3 class="card-header">
               Add a Car
-            </div>
+            </h3>
             <div>
               <form action="#" @submit.prevent="addCar">
                 <div class="form-group pt-3 row">
@@ -136,7 +136,9 @@
                 </div>
               </form>
               <car-list />
-              <div>
+              <div class="card pt-5">
+                <h3 class="card-header">Map Location</h3>
+
                 <GmapMap
                   :center="{ lat: 41.1669838, lng: -8.5881368 }"
                   :zoom="10"

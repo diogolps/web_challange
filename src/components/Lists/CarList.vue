@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="card">
-      <div class="card-header">
+    <div class="card pt-5">
+      <h3 class="card-header">
         Cars
-      </div>
+      </h3>
       <b-container>
         <b-row class="b-row pt-2">
           <b-col
