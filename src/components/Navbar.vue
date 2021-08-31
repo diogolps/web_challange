@@ -23,12 +23,14 @@
         <ul class="navbar-nav ml-auto">
           <template v-if="user.loggedIn">
             <li class="nav-item">
-              <router-link to="dashboard" class="nav-item">{{
+              <router-link to="dashboard" class="nav-link">{{
                 user.data.displayName
               }}</router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" @click.prevent="signOut">Sign out</a>
+              <b-link class="nav-link" @click.prevent="signOut"
+                >Sign out</b-link
+              >
             </li>
           </template>
           <template v-else>
