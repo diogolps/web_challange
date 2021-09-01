@@ -143,6 +143,9 @@
                   :center="{ lat: 41.1669838, lng: -8.5881368 }"
                   :zoom="10"
                   :opened="infoOpened"
+                  :options="{
+                    streetViewControl: false,
+                  }"
                   @closeclick="infoOpened = false"
                   map-type-id="roadmap"
                   style="width: 800px; height: 400px; margin-top:60px"
@@ -201,6 +204,7 @@ export default {
         lng: "",
       },
       error: null,
+      streetView: false,
       infoPosition: null,
       infoContent: null,
       infoOpened: false,
