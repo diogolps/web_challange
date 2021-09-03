@@ -269,7 +269,7 @@ export default {
     },
     toggleInfo: function(marker, key) {
       this.infoPosition = this.getPosition(marker);
-      this.infoContent = marker.brand;
+      this.infoContent = marker.brand + " " + marker.model;
       if (this.infoCurrentKey == key) {
         this.infoOpened = !this.infoOpened;
       } else {
@@ -281,6 +281,14 @@ export default {
 
   created() {
     this.getCoordinates();
+  },
+
+  mounted() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.getCoordinates().then((data) => (this.coordinates = data));
+      }
+    });
   },
 };
 </script>

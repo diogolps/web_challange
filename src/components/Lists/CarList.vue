@@ -121,5 +121,13 @@ export default {
   created() {
     this.getCars();
   },
+
+  mounted() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.getCars().then((data) => (this.cars = data));
+      }
+    });
+  },
 };
 </script>
