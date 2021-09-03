@@ -1,22 +1,27 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+
 admin.initializeApp();
 
-exports.addAdminRole = functions.https.onCall((data) => {
-  return admin
-    .auth()
-    .getUserByEmail(data.email)
-    .then((user) => {
-      return admin.auth().setCustomUserClaims(user.uid, {
-        admin: true,
-      });
-    })
-    .then(() => {
-      return {
-        message: "Sucess! ${data.email} has been made an admin",
-      };
-    })
-    .catch((err) => {
-      return err;
-    });
+const db = admin.firestore();
+
+exports.AddUserRole = functions.auth.user().onCreate(async (authUser) => {
+  if (authUser.email) {
+    const customClaims = {
+      admin: true,
+    };
+    try {
+      await admin.auth().setCustomUserClaims(authUser.uid, customClaims);
+
+      return db
+        .collection("admin")
+        .doc(authUser.uid)
+        .set({
+          email: authUser.email,
+          role: customClaims,
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 });

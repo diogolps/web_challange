@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Login from "../components/Auth/Login";
+import Home from "../components/Home";
 import Register from "../components/Auth/Register";
 import Dashboard from "../components/Auth/Dashboard";
 import Update from "../components/Auth/Update";
@@ -14,8 +15,8 @@ const router = new Router({
   routes: [
     {
       path: "/",
-      name: "login",
-      component: Login,
+      name: "home",
+      component: Home,
     },
     {
       path: "/login",
